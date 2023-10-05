@@ -1,0 +1,22 @@
+.navbar{
+    background-color:#eee;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.link{
+    color: #000;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+}
+.activeLink {
+    background-color: #000;
+    color: #fff;
+}
+  
