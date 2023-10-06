@@ -23,9 +23,23 @@
   tr {
     background-color: #fff;
   }
+
+  .viewButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+  }
   
   .editButton {
-    background-color: #007bff;
+    background-color: green;
     color: #fff;
     border: none;
     padding: 5px 10px;

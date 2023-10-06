@@ -1,0 +1,35 @@
+.product_filter select {
+    width: 200px;
+    height: 40px;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    background: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+}
+.product_filter select:hover {
+    border: 1px solid #333;
+}
+
+.product_search input {
+    width: 200px;
+    height: 40px;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    background: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+}

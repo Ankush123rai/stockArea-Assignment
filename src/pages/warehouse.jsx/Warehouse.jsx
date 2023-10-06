@@ -1,39 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Warehouse.module.css';
-import WarehouseJson from '../../components/warehouse.json';
 import WarehouseList from '../../components/warehouseList/WarehouseList';
 import { useDispatch, useSelector } from 'react-redux';
-import { addWarehouseDetails } from '../../redux/warehouseSlice'; // Correct the import path
-
+import { addWarehouseDetails } from '../../redux/WarehouseSlice';
+import WarehouseJson from "../../components/warehouse.json";
 const Warehouse = () => {
-  const dataFromRedux = useSelector((state) => state.warehouse.warehouseDetails);
-  const [warehouseData, setWarehouseData] = useState(dataFromRedux);
-
+  const warehouseData = useSelector((state) => state.warehouse.warehouseDetails);
+  const [showData, setShowData] = useState(warehouseData);
+  
   const dispatch = useDispatch();
 
   const handleFilterData = (e) => {
     const value = e.target.value;
-    let filteredData = dataFromRedux;
-
-    if (value === 'city') {
-      filteredData = filteredData.filter((data) =>
-        data.city.toLowerCase().includes(value.toLowerCase())
-      );
-    } else if (value === 'cluster') {
-      filteredData = filteredData.filter((data) =>
-        data.cluster.toLowerCase().includes(value.toLowerCase())
-      );
+    if(value === "all"){
+      setShowData(warehouseData);
+      return;
     }
-
-    setWarehouseData(filteredData);
+    const filterData = warehouseData.filter((data) => data.city === value);
+   setShowData(filterData);
   };
 
   const handleSearchData = (e) => {
     const value = e.target.value.toLowerCase();
-    const searchData = WarehouseJson.filter((data) =>
+    const searchData = warehouseData.filter((data) =>
       data.name.toLowerCase().includes(value)
     );
-    setWarehouseData(searchData);
+    setShowData(searchData);
   };
 
   useEffect(() => {
@@ -45,9 +37,28 @@ const Warehouse = () => {
       <div className={styles.product_features}>
         <div className={styles.product_filter}>
           <select onChange={handleFilterData}>
-            <option value="all">Filtered</option>
-            <option value="city">City</option>
-            <option value="cluster">Cluster</option>
+            <option value="all">City</option>
+            {warehouseData.map((data) => (
+              <option key={data.id} value={data.city}>
+                {data.city}
+              </option>
+            ))}
+          </select>
+          <select onChange={handleFilterData}>
+            <option value="all">Cluster</option>
+            {warehouseData.map((data) => (
+              <option key={data.id} value={data.cluster}>
+                {data.cluster}
+              </option>
+            ))}
+          </select>
+          <select onChange={handleFilterData}>
+            <option value="all">space_available</option>
+            {warehouseData.map((data) => (
+              <option key={data.id} value={data.space_available}>
+                {data.space_available}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.product_search}>
@@ -59,7 +70,7 @@ const Warehouse = () => {
         </div>
       </div>
       <div className={styles.product_card}>
-        <WarehouseList data={warehouseData} />
+        <WarehouseList data={showData} />
       </div>
     </div>
   );
