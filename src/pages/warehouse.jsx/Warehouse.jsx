@@ -6,18 +6,19 @@ import { addWarehouseDetails } from '../../redux/WarehouseSlice';
 import WarehouseJson from "../../components/warehouse.json";
 const Warehouse = () => {
   const warehouseData = useSelector((state) => state.warehouse.warehouseDetails);
-  const [showData, setShowData] = useState(warehouseData);
+  const [showData, setShowData] = useState([]);
   
   const dispatch = useDispatch();
 
+ 
   const handleFilterData = (e) => {
     const value = e.target.value;
-    if(value === "all"){
+    if (value === 'all') {
       setShowData(warehouseData);
       return;
     }
     const filterData = warehouseData.filter((data) => data.city === value);
-   setShowData(filterData);
+    setShowData(filterData);
   };
 
   const handleSearchData = (e) => {
@@ -29,15 +30,18 @@ const Warehouse = () => {
   };
 
   useEffect(() => {
-    dispatch(addWarehouseDetails({ item: WarehouseJson }));
-  }, [dispatch]);
-
+    if (warehouseData.length === 0) {
+      dispatch(addWarehouseDetails({ item: WarehouseJson }));
+    } else {
+      setShowData(warehouseData);
+    }
+  }, [dispatch, warehouseData]);
   return (
-    <div>
+    <div> 
       <div className={styles.product_features}>
         <div className={styles.product_filter}>
           <select onChange={handleFilterData}>
-            <option value="all">City</option>
+            <option value="all">All City</option>
             {warehouseData.map((data) => (
               <option key={data.id} value={data.city}>
                 {data.city}
@@ -64,7 +68,7 @@ const Warehouse = () => {
         <div className={styles.product_search}>
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="search by name"
             onChange={handleSearchData}
           />
         </div>
